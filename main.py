@@ -15,6 +15,10 @@ import json
 from agents.parser_agent import ProductDataParserAgent
 from agents.question_agent import QuestionGenerationAgent
 from logic_blocks.benefits import generate_benefits_block
+from logic_blocks.usage import generate_usage_block
+from logic_blocks.safety import generate_safety_block
+
+
 
 
 def main():
@@ -43,6 +47,21 @@ def main():
 
     print("Benefits Block:")
     print(benefits_block)
+
+    # 5. usage block
+    usage_block = generate_usage_block(product_model)
+
+    print("Usage Block:")
+    print(usage_block)
+    print("-" * 50)
+
+    # 6. safety block 
+    safety_block = generate_safety_block(product_model)
+
+    print("Safety Block:")
+    print(safety_block)
+    print("-" * 50)
+    
 
 
 if __name__ == "__main__":

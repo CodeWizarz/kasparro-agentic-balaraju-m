@@ -1,3 +1,7 @@
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![Architecture](https://img.shields.io/badge/Architecture-Agentic%20System-green)
+![Output](https://img.shields.io/badge/Output-Structured%20JSON-orange)
+
 # Kasparro – Multi-Agent Content Generation System
 
 This repository contains a **modular, agentic content generation system** built as part of the **Kasparro Applied AI Engineer assignment**. 

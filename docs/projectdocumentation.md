@@ -16,13 +16,19 @@ This system implements an **agent-orchestrated pipeline** that converts raw prod
 
 ### High-level Flow
 
-graph TD
-    A[Raw Product Data] --> B[ProductDataParserAgent]
-    B --> C[QuestionGenerationAgent]
-    C --> D[ContentLogicAgent]
-    D --> E[TemplateAgent]
-    E --> F[PageAssemblerAgent]
-    F --> G[JSON Outputs]
+Raw Product Data
+↓
+ProductDataParserAgent
+↓
+QuestionGenerationAgent
+↓
+ContentLogicAgent
+↓
+TemplateAgent
+↓
+PageAssemblerAgent
+↓
+JSON Outputs
 
 The system cleanly separates:
 - data parsing

@@ -1,0 +1,33 @@
+{
+  "page_type": "product",
+  "sections": {
+    "benefits": {
+      "benefits": [
+        {
+          "benefit": "Brightening",
+          "reason": "Vitamin C helps improve skin brightness"
+        },
+        {
+          "benefit": "Fades dark spots",
+          "reason": "Vitamin C supports reduction of dark spots"
+        }
+      ]
+    },
+    "usage": {
+      "time_of_use": "Morning",
+      "steps": [
+        "Cleanse your face",
+        "Apply 2\u20133 drops of the serum",
+        "Use before sunscreen"
+      ]
+    },
+    "safety": {
+      "side_effects": [
+        "Mild tingling for sensitive skin"
+      ],
+      "warnings": [
+        "Patch test recommended before full use"
+      ]
+    }
+  }
+}

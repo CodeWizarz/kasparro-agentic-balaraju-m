@@ -1,0 +1,8 @@
+{
+  "template_name": "comparison_template",
+  "page_type": "comparison",
+  "required_blocks": ["comparison"],
+  "layout": [
+    { "section_id": "comparison", "block": "comparison" }
+  ]
+}

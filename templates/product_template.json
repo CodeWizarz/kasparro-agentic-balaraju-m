@@ -1,0 +1,10 @@
+{
+  "template_name": "product_page_template",
+  "page_type": "product",
+  "required_blocks": ["benefits", "usage", "safety"],
+  "layout": [
+    { "section_id": "benefits", "block": "benefits" },
+    { "section_id": "usage", "block": "usage" },
+    { "section_id": "safety", "block": "safety" }
+  ]
+}

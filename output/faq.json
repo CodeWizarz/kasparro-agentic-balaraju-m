@@ -1,0 +1,29 @@
+{
+  "page_type": "faq",
+  "sections": {
+    "faq_section": {
+      "faq_items": [
+        {
+          "question": "What is GlowBoost Vitamin C Serum?",
+          "answer": "GlowBoost Vitamin C Serum is a skincare serum containing 10% Vitamin C."
+        },
+        {
+          "question": "What concentration of Vitamin C does GlowBoost Vitamin C Serum contain?",
+          "answer": "This information is based on the provided product details."
+        },
+        {
+          "question": "Who should use GlowBoost Vitamin C Serum?",
+          "answer": "This information is based on the provided product details."
+        },
+        {
+          "question": "How do I use GlowBoost Vitamin C Serum?",
+          "answer": "Apply 2 to 3 drops in the morning before sunscreen"
+        },
+        {
+          "question": "When should this serum be applied?",
+          "answer": "This information is based on the provided product details."
+        }
+      ]
+    }
+  }
+}

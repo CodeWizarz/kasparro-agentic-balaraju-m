@@ -2,14 +2,9 @@ import json
 
 from agents.parser_agent import ProductDataParserAgent
 from agents.question_agent import QuestionGenerationAgent
+from agents.logic_agent import ContentLogicAgent
 from agents.template_agent import TemplateAgent
 from agents.assembler_agent import PageAssemblerAgent
-
-from logic_blocks.benefits import generate_benefits_block
-from logic_blocks.usage import generate_usage_block
-from logic_blocks.safety import generate_safety_block
-from logic_blocks.faq import assemble_faq_block
-from logic_blocks.comparison import compare_products_block
 
 
 def load_template(path: str) -> dict:
@@ -19,7 +14,7 @@ def load_template(path: str) -> dict:
 
 def main():
     # --------------------------------------------------
-    # 1. Load raw product data
+    # 1. Load raw input data
     # --------------------------------------------------
     with open("data/product_input.json", "r") as f:
         raw_product = json.load(f)
@@ -48,17 +43,17 @@ def main():
     print("-" * 50)
 
     # --------------------------------------------------
-    # 4. Generate logic blocks
+    # 4. Generate all content logic blocks via LogicAgent
     # --------------------------------------------------
-    benefits_block = generate_benefits_block(product_model)
-    usage_block = generate_usage_block(product_model)
-    safety_block = generate_safety_block(product_model)
-    faq_block = assemble_faq_block(questions, product_model)
+    logic_agent = ContentLogicAgent()
+    blocks = logic_agent.generate_blocks(
+        product=product_model,
+        questions=questions,
+        product_b=product_b
+    )
 
-    # Comparison logic block
-    comparison_block = compare_products_block(product_model, product_b)
-
-    print("Logic Blocks Generated")
+    print("Content Logic Blocks Generated:")
+    print(list(blocks.keys()))
     print("-" * 50)
 
     # --------------------------------------------------
@@ -69,18 +64,7 @@ def main():
     comparison_template = load_template("templates/comparison_template.json")
 
     # --------------------------------------------------
-    # 6. Assemble blocks dictionary
-    # --------------------------------------------------
-    blocks = {
-        "benefits": benefits_block,
-        "usage": usage_block,
-        "safety": safety_block,
-        "faq": faq_block,
-        "comparison": comparison_block
-    }
-
-    # --------------------------------------------------
-    # 7. Apply templates
+    # 6. Apply templates
     # --------------------------------------------------
     template_agent = TemplateAgent()
 
@@ -89,7 +73,7 @@ def main():
     comparison_page = template_agent.apply_template(comparison_template, blocks)
 
     # --------------------------------------------------
-    # 8. Save output pages
+    # 7. Save output pages
     # --------------------------------------------------
     assembler = PageAssemblerAgent()
     assembler.save_page(faq_page, "faq.json")

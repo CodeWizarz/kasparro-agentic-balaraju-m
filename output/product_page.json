@@ -1,6 +1,18 @@
 {
   "page_type": "product",
   "sections": {
+    "overview": {
+      "product_name": "GlowBoost Vitamin C Serum",
+      "concentration": "10%",
+      "target_skin_type": [
+        "Oily",
+        "Combination"
+      ],
+      "key_ingredients": [
+        "Vitamin C",
+        "Hyaluronic Acid"
+      ]
+    },
     "benefits": {
       "benefits": [
         {
@@ -28,6 +40,10 @@
       "warnings": [
         "Patch test recommended before full use"
       ]
+    },
+    "pricing": {
+      "price_inr": 699,
+      "price_category": "Mid-range"
     }
   }
 }

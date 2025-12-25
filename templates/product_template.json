@@ -1,10 +1,12 @@
 {
   "template_name": "product_page_template",
   "page_type": "product",
-  "required_blocks": ["benefits", "usage", "safety"],
+  "required_blocks": ["overview", "benefits", "usage", "safety", "pricing"],
   "layout": [
+    { "section_id": "overview", "block": "overview" },
     { "section_id": "benefits", "block": "benefits" },
     { "section_id": "usage", "block": "usage" },
-    { "section_id": "safety", "block": "safety" }
+    { "section_id": "safety", "block": "safety" },
+    { "section_id": "pricing", "block": "pricing" }
   ]
 }

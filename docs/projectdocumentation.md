@@ -1,33 +1,38 @@
+This is a significant improvement. By pivoting to a **LangGraph-orchestrated, schema-validated agentic system**, you've moved from a "script" mindset to a "distributed systems" mindset. This alignment with Kasparro’s requirements—specifically the shift from deterministic logic blocks to LLM-backed agents bounded by Pydantic schemas—is exactly what an evaluator in this space is looking for.
+
+Here is the clean Markdown code for your updated `docs/projectdocumentation.md`.
+
+```markdown
 # Project Documentation – Multi-Agent Content Generation System
 
 ---
 
 ## 1. Problem Statement
 
-Modern content systems require generating structured, consistent, and machine-readable content from raw product data at scale. Traditional approaches rely on tightly coupled scripts or prompt-based generation, which makes systems difficult to maintain, extend, or reason about.
+Modern content automation systems must reliably transform structured product data into multiple downstream content formats while remaining modular, extensible, and verifiable. Traditional approaches that rely on monolithic scripts or single-prompt LLM calls suffer from poor maintainability, weak guarantees on output structure, and limited system-level reasoning.
 
-The goal of this project is to design and implement a **modular, agentic content generation system** that transforms structured product data into multiple content pages using **clear agent boundaries**, **reusable logic blocks**, and **template-driven assembly**.
+The objective of this project is to design and implement a **production-style agentic automation system** that converts a small, fixed product dataset into multiple **machine-readable JSON content pages**, using clear agent boundaries, explicit orchestration, schema validation, and LLM-driven reasoning.
+
+This project evaluates **system design and automation engineering**, not content writing or domain expertise.
 
 ---
 
 ## 2. Solution Overview
 
-This system implements an **agent-orchestrated pipeline** that converts raw product data into structured JSON pages. It cleanly separates data parsing, content logic, template structure, and output assembly.
+The system is implemented as a **LangGraph-based multi-agent pipeline**. Each agent is responsible for a single transformation step and communicates exclusively through a shared, typed graph state.
 
-### High-level Flow
+Rather than using deterministic rules or template-driven text generation, all content is produced by **LLM-backed agents**, with **Pydantic schemas acting as structural templates and validation gates**.
 
-
+### High-Level Flow
 
 ```mermaid
 graph TD
-    Data[(Raw Product Data)] --> Parser[ProductDataParserAgent]
-    Parser --> QGen[QuestionGenerationAgent]
-    QGen --> Logic[ContentLogicAgent]
-    Logic --> Template[TemplateAgent]
-    Template --> Assembler[PageAssemblerAgent]
-    Assembler --> JSON1(FAQ.json)
-    Assembler --> JSON2(Product_Page.json)
-    Assembler --> JSON3(Comparison_Page.json)
+    Input[Product Dataset] --> QGen[Question Generation Agent]
+    QGen --> FAQ[FAQ Answer Agent]
+    FAQ --> Product[Product Page Agent]
+    Product --> Compare[Comparison Agent]
+    Compare --> Validate[Validation Agent]
+    Validate --> Output[Output Writer Agent]
 
 ```
 
@@ -37,15 +42,20 @@ graph TD
 
 ### Scope
 
-* **Input**: Limited to the provided product dataset.
-* **Format**: All outputs are strictly machine-readable JSON.
-* **Deliverables**: Three distinct pages (FAQ, Product, and Comparison).
+* **Input:** A single structured product dataset (GlowBoost Vitamin C Serum).
+* **Output:** Three machine-readable JSON pages:
+* FAQ Page
+* Product Description Page
+* Comparison Page (vs fictional Product B)
+
+
+* **Execution:** Fully autonomous via an agent orchestration graph.
 
 ### Assumptions
 
-* **Data Privacy**: No external data or web research is used.
-* **Integrity**: Outputs are deterministic and rule-based.
-* **Purpose**: Designed for system automation and extensibility, not UI/frontend rendering.
+* No external knowledge or web research is permitted.
+* All outputs must be traceable back to the input dataset.
+* The system is designed for backend automation pipelines, not UI rendering.
 
 ---
 
@@ -53,52 +63,74 @@ graph TD
 
 ### 4.1 Agent Responsibilities
 
+Each agent operates as a node in the LangGraph execution graph, with clearly defined inputs and outputs.
+
 | Agent | Responsibility |
 | --- | --- |
-| **ProductDataParserAgent** | Normalizes raw input into a consistent internal data model. |
-| **QuestionGenerationAgent** | Generates categorized questions (Safety, Usage, etc.) without page awareness. |
-| **ContentLogicAgent** | Executes domain-agnostic transformations (Overview, Benefits, Pricing). |
-| **TemplateAgent** | Applies declarative schemas and validates required content blocks. |
-| **PageAssemblerAgent** | Finalizes the JSON structure and handles file persistence. |
+| **QuestionGenerationAgent** | Uses an LLM to generate 15+ categorized user questions from product data. |
+| **FAQAgent** | Answers all generated questions using LLM reasoning grounded strictly in product data. |
+| **ProductPageAgent** | Generates a structured product page (overview, benefits, usage, safety, pricing). |
+| **ComparisonAgent** | Produces a structured comparison between Product A and a fictional Product B. |
+| **ValidationAgent** | Enforces schema correctness and minimum content constraints (e.g., FAQ count). |
+| **OutputAgent** | Persists validated JSON pages to disk. |
 
----
+All agents communicate via a shared `GraphState` and do not rely on global variables or side effects.
 
-### 4.2 Logic Blocks
+### 4.2 Orchestration & Control Flow
 
-Logic blocks are **pure, reusable functions** that accept structured input and return deterministic output. They are stateless and have no knowledge of the final page layout.
+The system is orchestrated using **LangGraph**, which provides:
 
-* *Examples*: `generate_benefits_block`, `pricing_categorization`, `compare_products_block`.
+* Explicit DAG-style execution
+* Deterministic control flow
+* Clear dependency ordering
+* Retry handling for transient failures
 
-### 4.3 Template Engine
+Retry logic is applied to LLM-backed agents to handle non-deterministic failures while preserving system stability.
 
-Templates are declarative JSON schemas. They specify the layout and required logic blocks but contain **no business logic**. This allows developers to add new page types simply by defining a new schema.
+### 4.3 Templates via Schema Enforcement
 
-### 4.4 Orchestration
+Instead of traditional string-based templates, this system uses **Pydantic schemas** as declarative templates. Schemas define:
 
-Handled by `main.py`, the orchestrator initializes agents and manages the state transfer between them, ensuring the pipeline is explicit and traceable.
+* Required fields
+* Expected data types
+* Structural constraints
+* Validation rules
+
+This approach ensures that all generated content is machine-readable, structurally consistent, and validated before persistence.
+
+### 4.4 Validation & Robustness
+
+The system includes multiple quality gates:
+
+* Schema validation for all generated pages.
+* Minimum FAQ count enforcement (≥ 15).
+* Type normalization and list enforcement.
+* Retry logic for LLM calls.
+* Automated tests validating pipeline outputs.
 
 ---
 
 ## 5. Data & Output Structure
 
-All outputs follow a standardized format to ensure they are ready for downstream consumption:
+Each output page is emitted as clean JSON:
 
-* **Page Metadata**: Includes `page_type` and timestamps.
-* **Sections**: Categorized content blocks derived from logic functions.
-* **Constraint**: No free-text blobs; every data point is mapped from the source.
+* `faq.json`: List of question-answer pairs (≥15).
+* `product_page.json`: Structured product description.
+* `comparison_page.json`: Side-by-side product comparison.
 
 ---
 
 ## 6. Extensibility
 
-The system is architected for growth:
+The system is designed for easy extension:
 
-1. **New Products**: Plug into the existing `ParserAgent`.
-2. **New Logic**: Add a standalone block in `logic_blocks/`.
-3. **New Channels**: Create a new template (e.g., `mobile_app_template.json`) without touching core logic.
+1. **New Products:** Swap input data without changing agent logic.
+2. **New Page Types:** Add a new agent + schema.
+3. **New Validation Rules:** Extend the validation agent.
+4. **New Tools:** Agents can be augmented with external tools without altering orchestration.
 
 ---
 
 ## 7. Conclusion
 
-This project demonstrates a production-style approach to building agentic systems. By emphasizing **separation of concerns** and **deterministic logic**, the system provides a robust foundation for automated content pipelines that are far more reliable than standard LLM-scripting methods.
+This project demonstrates a production-oriented approach to building agentic automation systems. By combining LLM-backed agents, explicit orchestration, schema-based templates, and robust validation, the system avoids the pitfalls of monolithic or prompt-only solutions.

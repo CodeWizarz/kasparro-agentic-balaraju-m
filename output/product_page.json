@@ -1,49 +1,44 @@
 {
-  "page_type": "product",
-  "sections": {
-    "overview": {
-      "product_name": "GlowBoost Vitamin C Serum",
-      "concentration": "10%",
-      "target_skin_type": [
-        "Oily",
-        "Combination"
-      ],
-      "key_ingredients": [
-        "Vitamin C",
-        "Hyaluronic Acid"
-      ]
+  "overview": {
+    "product_name": "GlowBoost Vitamin C Serum",
+    "concentration": "10%",
+    "target_skin_type": [
+      "Oily",
+      "Combination"
+    ],
+    "key_ingredients": [
+      "Vitamin C",
+      "Hyaluronic Acid"
+    ]
+  },
+  "benefits": [
+    {
+      "benefit": "Brightening",
+      "reason": "Helps to enhance skin radiance and glow."
     },
-    "benefits": {
-      "benefits": [
-        {
-          "benefit": "Brightening",
-          "reason": "Vitamin C helps improve skin brightness"
-        },
-        {
-          "benefit": "Fades dark spots",
-          "reason": "Vitamin C supports reduction of dark spots"
-        }
-      ]
-    },
-    "usage": {
-      "time_of_use": "Morning",
-      "steps": [
-        "Cleanse your face",
-        "Apply 2\u20133 drops of the serum",
-        "Use before sunscreen"
-      ]
-    },
-    "safety": {
-      "side_effects": [
-        "Mild tingling for sensitive skin"
-      ],
-      "warnings": [
-        "Patch test recommended before full use"
-      ]
-    },
-    "pricing": {
-      "price_inr": 699,
-      "price_category": "Mid-range"
+    {
+      "benefit": "Fades dark spots",
+      "reason": "Aids in reducing the appearance of pigmentation."
     }
+  ],
+  "usage": {
+    "time_of_use": [
+      "Morning"
+    ],
+    "steps": [
+      "Apply 2 to 3 drops in the morning before sunscreen"
+    ]
+  },
+  "safety": {
+    "side_effects": [
+      "Mild tingling for sensitive skin"
+    ],
+    "warnings": [
+      "Patch test recommended before full use"
+    ]
+  },
+  "pricing": {
+    "price": "699",
+    "category": "mid-range"
   }
 }

@@ -1,25 +1,24 @@
-class QuestionGenerationAgent:
-    def generate(self, product: dict) -> dict:
-        questions = {
-            "informational": [
-                f"What is {product['name']}?",
-                f"What concentration of Vitamin C does {product['name']} contain?",
-                f"Who should use {product['name']}?"
-            ],
-            "usage": [
-                f"How do I use {product['name']}?",
-                "When should this serum be applied?"
-            ],
-            "safety": [
-                "Are there any side effects?",
-                "Is this serum suitable for sensitive skin?"
-            ],
-            "purchase": [
-                f"What is the price of {product['name']}?",
-                "Is this product affordable compared to similar serums?"
-            ],
-            "comparison": [
-                f"How does {product['name']} compare to other Vitamin C serums?"
-            ]
-        }
-        return questions
+from langchain_openai import ChatOpenAI
+from graph.state import GraphState
+
+def question_generation_agent(state: GraphState) -> GraphState:
+    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
+
+    prompt = f"""
+    Generate at least 15 diverse user questions about this product.
+    Categories: informational, usage, safety, pricing, comparison.
+
+    Product:
+    {state['product']}
+
+    Return as a numbered list.
+    """
+
+    response = llm.invoke(prompt)
+    questions = [q.strip() for q in response.content.split("\n") if q.strip()]
+
+    if len(questions) < 15:
+        raise ValueError("LLM did not generate enough questions")
+
+    state["questions"] = questions
+    return state

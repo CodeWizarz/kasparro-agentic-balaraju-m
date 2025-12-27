@@ -1,29 +1,62 @@
-{
-  "page_type": "faq",
-  "sections": {
-    "faq_section": {
-      "faq_items": [
-        {
-          "question": "What is GlowBoost Vitamin C Serum?",
-          "answer": "GlowBoost Vitamin C Serum is a skincare serum formulated with 10% Vitamin C."
-        },
-        {
-          "question": "What concentration of Vitamin C does GlowBoost Vitamin C Serum contain?",
-          "answer": "The serum contains 10% Vitamin C, as specified in the product details."
-        },
-        {
-          "question": "Who should use GlowBoost Vitamin C Serum?",
-          "answer": "This product is suitable for individuals with Oily, Combination skin types."
-        },
-        {
-          "question": "How do I use GlowBoost Vitamin C Serum?",
-          "answer": "Apply 2 to 3 drops in the morning before sunscreen"
-        },
-        {
-          "question": "When should this serum be applied?",
-          "answer": "The serum is recommended for morning use, as indicated in the usage instructions."
-        }
-      ]
-    }
+[
+  {
+    "question": "What are the main benefits of using GlowBoost Vitamin C Serum?",
+    "answer": "The main benefits of using GlowBoost Vitamin C Serum are brightening the skin and fading dark spots."
+  },
+  {
+    "question": "How should I incorporate GlowBoost Vitamin C Serum into my skincare routine?",
+    "answer": "To incorporate GlowBoost Vitamin C Serum into your skincare routine, apply 2 to 3 drops in the morning before applying sunscreen."
+  },
+  {
+    "question": "Is GlowBoost Vitamin C Serum suitable for sensitive skin types?",
+    "answer": "GlowBoost Vitamin C Serum is not specifically formulated for sensitive skin types, as it may cause mild tingling. It is recommended for oily and combination skin types."
+  },
+  {
+    "question": "What is the concentration of Vitamin C in GlowBoost Vitamin C Serum?",
+    "answer": "The concentration of Vitamin C in GlowBoost Vitamin C Serum is 10%."
+  },
+  {
+    "question": "How long will it take to see results from using GlowBoost Vitamin C Serum?",
+    "answer": "The product data does not specify a timeframe for seeing results from using GlowBoost Vitamin C Serum."
+  },
+  {
+    "question": "Can I use GlowBoost Vitamin C Serum with other skincare products?",
+    "answer": "Yes, you can use GlowBoost Vitamin C Serum with other skincare products. It is recommended to apply it in the morning before sunscreen."
+  },
+  {
+    "question": "What are the potential side effects of using GlowBoost Vitamin C Serum?",
+    "answer": "The potential side effect of using GlowBoost Vitamin C Serum is mild tingling for sensitive skin."
+  },
+  {
+    "question": "How much does GlowBoost Vitamin C Serum cost, and where can I purchase it?",
+    "answer": "GlowBoost Vitamin C Serum costs 699. Please check local retailers or online stores for purchase options."
+  },
+  {
+    "question": "How does GlowBoost Vitamin C Serum compare to other Vitamin C serums on the market?",
+    "answer": "The GlowBoost Vitamin C Serum contains a 10% concentration of Vitamin C and is formulated for oily and combination skin types. It includes Hyaluronic Acid for added hydration and offers benefits such as brightening and fading dark spots. The recommended usage is to apply 2 to 3 drops in the morning before sunscreen, and it may cause mild tingling for sensitive skin. The price is 699. For a direct comparison, specific details about other serums would be needed."
+  },
+  {
+    "question": "Is there a specific way to store GlowBoost Vitamin C Serum to maintain its effectiveness?",
+    "answer": "The product data does not specify storage instructions for GlowBoost Vitamin C Serum."
+  },
+  {
+    "question": "Can I use GlowBoost Vitamin C Serum if I have oily skin?",
+    "answer": "Yes, GlowBoost Vitamin C Serum is suitable for oily skin."
+  },
+  {
+    "question": "Are there any ingredients in GlowBoost Vitamin C Serum that I should be cautious about?",
+    "answer": "The GlowBoost Vitamin C Serum may cause mild tingling for sensitive skin."
+  },
+  {
+    "question": "What is the recommended amount of GlowBoost Vitamin C Serum to use per application?",
+    "answer": "The recommended amount of GlowBoost Vitamin C Serum to use per application is 2 to 3 drops."
+  },
+  {
+    "question": "How does the inclusion of Hyaluronic Acid benefit the formulation of GlowBoost Vitamin C Serum?",
+    "answer": "Hyaluronic Acid in the GlowBoost Vitamin C Serum helps to hydrate the skin, enhancing moisture retention and providing a plumping effect, which complements the brightening and dark spot-fading benefits of Vitamin C."
+  },
+  {
+    "question": "Are there any discounts or promotions available for purchasing GlowBoost Vitamin C Serum?",
+    "answer": "The provided product data does not include information about discounts or promotions for the GlowBoost Vitamin C Serum."
   }
-}
+]

@@ -1,49 +1,53 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![Architecture](https://img.shields.io/badge/Architecture-Agentic%20System-green)
-![Output](https://img.shields.io/badge/Output-Structured%20JSON-orange)
+![Framework](https://img.shields.io/badge/Framework-LangGraph-green)
+![Architecture](https://img.shields.io/badge/Architecture-Agentic%20System-orange)
+![Output](https://img.shields.io/badge/Output-Structured%20JSON-blueviolet)
 
 # Kasparro – Multi-Agent Content Generation System
 
-This repository contains a **modular, agentic content generation system** built as part of the **Kasparro Applied AI Engineer assignment**. 
+This repository contains a **production-style, agentic content generation system** built as part of the **Kasparro Applied AI Engineer assignment**.
 
-The system demonstrates how structured product data can be transformed into multiple **machine-readable content pages** using clear agent boundaries, reusable logic blocks, declarative templates, and explicit orchestration.
+The system demonstrates how a small, structured product dataset can be transformed into multiple **machine-readable content pages** using **LLM-backed agents**, **explicit orchestration**, **schema validation**, and **robust automation design**.
 
 ---
 
 ## 🚀 What This Project Does
 
-Given a structured product dataset, the system automatically generates:
+Given a structured product dataset, the system autonomously generates:
 
-- **FAQ Page** (`faq.json`)
-- **Product Page** (`product_page.json`)
-- **Comparison Page** (`comparison_page.json`)
+- **FAQ Page** (`faq.json`) — 15+ user questions and answers
+- **Product Page** (`product_page.json`) — structured product description
+- **Comparison Page** (`comparison_page.json`) — GlowBoost vs a fictional product
 
 All outputs are:
-- **Deterministic**: Consistent results based on input.
-- **Rule-based**: Adheres to specific content logic.
-- **Machine-readable**: Standardized JSON format.
-- **Orchestrated**: Driven by specialized agents rather than a monolithic script.
+- **LLM-generated** (no hardcoded content)
+- **Schema-validated** (machine-readable JSON)
+- **Orchestrated via LangGraph**
+- **Produced by specialized agents**, not a monolithic script
 
 ---
 
 ## 🧠 System Architecture
 
-The high-level execution flow follows a linear pipeline where data is enriched and structured at each stage:
-
-
+The system is implemented as a **LangGraph-based multi-agent pipeline**, where each agent performs a single responsibility and communicates through a shared graph state.
 
 ```mermaid
 graph TD
-    A[Raw Product Data] --> B[ProductDataParserAgent]
-    B --> C[QuestionGenerationAgent]
-    C --> D[ContentLogicAgent]
-    D --> E[TemplateAgent]
-    E --> F[PageAssemblerAgent]
-    F --> G[Structured JSON Outputs]
+    Input[Product Dataset] --> QGen[Question Generation Agent]
+    QGen --> FAQ[FAQ Agent]
+    FAQ --> Product[Product Page Agent]
+    Product --> Compare[Comparison Agent]
+    Compare --> Validate[Validation Agent]
+    Validate --> Output[Output Writer Agent]
+````
 
-```
+Key architectural characteristics:
 
-Each agent has a **single responsibility**, ensuring clarity, extensibility, and ease of debugging.
+* Explicit DAG execution
+* Clear agent boundaries
+* No global state
+* Retry handling for LLM failures
+* Validation gates before persistence
 
 ---
 
@@ -52,25 +56,25 @@ Each agent has a **single responsibility**, ensuring clarity, extensibility, and
 ```text
 .
 ├── agents/
-│   ├── parser_agent.py
 │   ├── question_agent.py
-│   ├── logic_agent.py
-│   ├── template_agent.py
-│   └── assembler_agent.py
+│   ├── faq_agent.py
+│   ├── product_agent.py
+│   ├── comparison_agent.py
+│   ├── validation_agent.py
+│   ├── output_agent.py
+│   ├── retry_utils.py
+│   └── __init__.py
 │
-├── logic_blocks/
-│   ├── overview.py
-│   ├── benefits.py
-│   ├── usage.py
-│   ├── safety.py
-│   ├── pricing.py
+├── graph/
+│   ├── graph.py
+│   ├── state.py
+│   └── __init__.py
+│
+├── schemas/
 │   ├── faq.py
-│   └── comparison.py
-│
-├── templates/
-│   ├── faq_template.json
-│   ├── product_template.json
-│   └── comparison_template.json
+│   ├── product.py
+│   ├── comparison.py
+│   └── __init__.py
 │
 ├── data/
 │   ├── product_input.json
@@ -81,12 +85,17 @@ Each agent has a **single responsibility**, ensuring clarity, extensibility, and
 │   ├── product_page.json
 │   └── comparison_page.json
 │
+├── tests/
+│   ├── test_faq_count.py
+│   └── test_pipeline_outputs.py
+│
 ├── docs/
 │   └── projectdocumentation.md
 │
 ├── main.py
-└── README.md
-
+├── requirements.txt
+├── README.md
+└── .env.example
 ```
 
 ---
@@ -95,52 +104,67 @@ Each agent has a **single responsibility**, ensuring clarity, extensibility, and
 
 ### Prerequisites
 
-* Python 3.10 or higher
+* Python 3.10+
+* OpenAI API key
 
-### Run the system
+### Setup
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Create a `.env` file using the provided template:
+
+```env
+OPENAI_API_KEY=your_api_key_here
+```
+
+### Run the Pipeline
 
 ```bash
 python main.py
-
 ```
 
-### Output
+### Run Tests
 
-Generated files will appear in the `output/` directory:
-
-* `faq.json`
-* `product_page.json`
-* `comparison_page.json`
+```bash
+pytest
+```
 
 ---
 
 ## 🧩 Design Principles
 
-* **Agent-based orchestration**: Complex tasks are broken down into manageable sub-tasks.
-* **Reusable, stateless logic blocks**: Logic is modular and can be shared across different templates.
-* **Declarative template definitions**: Separation of content structure from the data filling it.
-* **Clear separation of concerns**: Data parsing, logic application, and formatting are decoupled.
-* **Deterministic outputs**: Strictly derived from input data for reliability.
-
-The system is intentionally designed to mirror **production-grade AI content pipelines** rather than simple prompt-based scripting.
+* **Agentic orchestration**: Each task is handled by a dedicated agent.
+* **LLM-based reasoning**: No deterministic or hardcoded content generation.
+* **Schema-driven templates**: Pydantic schemas act as structural templates.
+* **Explicit validation**: Outputs are validated before persistence.
+* **Robust execution**: Retry logic and failure isolation.
+* **Production-oriented design**: Extensible, testable, and auditable.
 
 ---
 
 ## 📄 Documentation
 
-Detailed system design, architecture, and engineering reasoning are documented in:
-`docs/projectdocumentation.md`
+Detailed system design, architecture rationale, and engineering decisions are documented in:
+
+```
+docs/projectdocumentation.md
+```
 
 ---
 
-## ⚠️ Notes & Constraints
+## ⚠️ Constraints & Notes
 
-* No external data or real-time research is performed.
-* Comparison products are fictional and provided within the structured input.
-* This project focuses on **system design and automation**, not frontend UI rendering.
+* No external data or research is used.
+* Comparison products are fictional and defined in input data.
+* The project focuses on **automation and system design**, not UI rendering.
 
 ---
 
 ## ✅ Conclusion
 
-This project demonstrates a clean, extensible approach to building **agentic content systems**, emphasizing correctness, modularity, and maintainability—key qualities for production-level Applied AI Engineering.
+This project demonstrates a **real-world applied AI engineering approach** to building agentic automation systems. By combining **LangGraph orchestration**, **LLM-backed agents**, and **schema-enforced outputs**, the system avoids brittle prompt-only solutions and delivers a robust, extensible content generation pipeline.
+
